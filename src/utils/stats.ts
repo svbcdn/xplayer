@@ -9,6 +9,7 @@ const Info = new URL(location.href);
 let ID = Info.searchParams.get("id") || "";
 ID = decodeURIComponent(ID);
 const Host = /^https?:/i.test(ID) ? new URL(ID).hostname : "";
+console.info("ID", ID, Host);
 class Stats extends EventEmitter<Event> {
   constructor() {
     super();
