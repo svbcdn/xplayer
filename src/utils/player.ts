@@ -90,15 +90,16 @@ async function init(urls: string[]) {
   });
 
   window.addEventListener("resize", () => {
-    console.info("===height", ele?.offsetHeight);
     if (ele && window.parent && window.parent != window) {
+      console.info("===height", ele?.offsetHeight);
       window.parent.postMessage({
         evnet: "video_resize",
         data: {
           width: ele.offsetWidth,
           height: ele.offsetHeight,
         },
-      });
+      }),
+        "*";
     }
   });
   //player.value = _player;
