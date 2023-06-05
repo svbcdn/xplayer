@@ -23,7 +23,7 @@ async function init(urls: string[]) {
   let lastPlayTime = parseInt(sessionStorage.getItem(Key) || "") || 1;
 
   console.info("==== play ", url, lastPlayTime);
-  let ele = document.querySelector("#xplayer");
+  let ele = document.querySelector("#xplayer") as HTMLElement;
   if (!!player) destroy();
   //let url = "https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4";
   //url =
@@ -87,6 +87,19 @@ async function init(urls: string[]) {
   });
   window.addEventListener("beforeunload", () => {
     sessionStorage.setItem(Key, player.currentTime);
+  });
+
+  window.addEventListener("resize", () => {
+    console.info("===height", ele?.offsetHeight);
+    if (ele && window.parent && window.parent != window) {
+      window.parent.postMessage({
+        evnet: "video_resize",
+        data: {
+          width: ele.offsetWidth,
+          height: ele.offsetHeight,
+        },
+      });
+    }
   });
   //player.value = _player;
 }
