@@ -16,6 +16,11 @@ const destroy = () => {
   player.destroy();
   player = undefined;
 };
+const getLang = () => {
+  let lang = navigator.language;
+  if (/(cn|zh)/i.test(lang)) return "zh";
+  return "cn";
+};
 async function init(urls: string[]) {
   if (!urls || urls.length < 1) return;
   let url = urls[0];
@@ -47,7 +52,7 @@ async function init(urls: string[]) {
     keyShortcut: true,
     playsinline: true,
     enableContextmenu: true,
-    lang: navigator.language,
+    lang: getLang(),
     crossOrigin: true,
     plugins: [globalThis.HlsJsPlugin],
   });
@@ -64,7 +69,23 @@ async function init(urls: string[]) {
       return v
     }));
   } */
+  function notifyResize() {
+    if (ele && window.parent && window.parent != window) {
+      console.info("=== video height", ele?.offsetHeight);
+      window.parent.postMessage(
+        {
+          event: "video_resize",
+          data: {
+            width: ele.offsetWidth,
+            height: ele.offsetHeight,
+          },
+        },
+        "*",
+      );
+    }
+  }
   player.once("ready", () => {
+    notifyResize();
     setTimeout(() => {
       player.currentTime = lastPlayTime;
       player.play();
@@ -88,21 +109,7 @@ async function init(urls: string[]) {
   window.addEventListener("beforeunload", () => {
     sessionStorage.setItem(Key, player.currentTime);
   });
-  function notifyResize() {
-    if (ele && window.parent && window.parent != window) {
-      console.info("=== video height", ele?.offsetHeight);
-      window.parent.postMessage(
-        {
-          event: "video_resize",
-          data: {
-            width: ele.offsetWidth,
-            height: ele.offsetHeight,
-          },
-        },
-        "*",
-      );
-    }
-  }
+
   notifyResize();
   window.addEventListener("resize", () => {
     notifyResize();
