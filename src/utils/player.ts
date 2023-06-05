@@ -88,8 +88,7 @@ async function init(urls: string[]) {
   window.addEventListener("beforeunload", () => {
     sessionStorage.setItem(Key, player.currentTime);
   });
-
-  window.addEventListener("resize", () => {
+  function notifyResize() {
     if (ele && window.parent && window.parent != window) {
       console.info("=== video height", ele?.offsetHeight);
       window.parent.postMessage(
@@ -103,6 +102,10 @@ async function init(urls: string[]) {
         "*",
       );
     }
+  }
+  notifyResize();
+  window.addEventListener("resize", () => {
+    notifyResize();
   });
   //player.value = _player;
 }
