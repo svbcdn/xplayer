@@ -92,14 +92,16 @@ async function init(urls: string[]) {
   window.addEventListener("resize", () => {
     if (ele && window.parent && window.parent != window) {
       console.info("=== video height", ele?.offsetHeight);
-      window.parent.postMessage({
-        event: "video_resize",
-        data: {
-          width: ele.offsetWidth,
-          height: ele.offsetHeight,
+      window.parent.postMessage(
+        {
+          event: "video_resize",
+          data: {
+            width: ele.offsetWidth,
+            height: ele.offsetHeight,
+          },
         },
-      }),
-        "*";
+        "*",
+      );
     }
   });
   //player.value = _player;
