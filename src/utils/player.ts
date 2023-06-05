@@ -20,7 +20,7 @@ async function init(urls: string[]) {
   if (!urls || urls.length < 1) return;
   let url = urls[0];
   const Key = "playTime-" + url;
-  let lastPlayTime = parseInt(sessionStorage.getItem(Key) || "") || 0;
+  let lastPlayTime = parseInt(sessionStorage.getItem(Key) || "") || 1;
 
   console.info("==== play ", url, lastPlayTime);
   let ele = document.querySelector("#xplayer");
