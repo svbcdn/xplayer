@@ -1,6 +1,5 @@
 import { initScript } from "./loadres";
 import stats from "./stats";
-console.info("start========================");
 let player;
 let isDestroy = false;
 initScript(() => {
@@ -20,14 +19,16 @@ const destroy = () => {
 async function init(urls: string[]) {
   if (!urls || urls.length < 1) return;
   let url = urls[0];
+  const Key = "playTime-" + url;
+  let lastPlayTime = parseInt(sessionStorage.getItem(Key) || "") || 0;
+
+  console.info("==== play ", url, lastPlayTime);
   let ele = document.querySelector("#xplayer");
-  await initScript();
   if (!!player) destroy();
   //let url = "https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4";
   //url =
   //  "https://m3u.haiwaikan.com/xm3u8/9df98f18a3f5614ef85b0e5369de07a316877bb3ee411965cb32065413c5dae79921f11e97d0da21.m3u8";
   const width = 700;
-  let lastPlayTime = parseInt(localStorage.getItem(url) || "") || 0;
   player = new globalThis.Player({
     el: ele,
     url: url,
@@ -83,6 +84,9 @@ async function init(urls: string[]) {
   });
   player.on("error", (err) => {
     stats.error(err);
+  });
+  window.addEventListener("beforeunload", () => {
+    sessionStorage.setItem(Key, player.currentTime);
   });
   //player.value = _player;
 }
