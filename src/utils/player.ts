@@ -91,7 +91,7 @@ async function init(urls: string[]) {
 
   window.addEventListener("resize", () => {
     if (ele && window.parent && window.parent != window) {
-      console.info("===height", ele?.offsetHeight);
+      console.info("=== video height", ele?.offsetHeight);
       window.parent.postMessage({
         event: "video_resize",
         data: {
