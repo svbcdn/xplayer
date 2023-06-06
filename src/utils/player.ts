@@ -88,27 +88,12 @@ async function init(urls: string[]) {
       player.play();
     }, 200);
   });
-  player.once("complete", () => {
-    player.pause();
-  });
-  player.on("play", () => {
-    stats.play();
-  });
-  player.on("pause", () => {
-    stats.pause();
-  });
-  player.on("ended", () => {
-    stats.end();
-  });
   player.on("error", (err) => {
     stats.error(err);
   });
-  player.on("requestCssFullscreen", () => {
-    postMessage2Parent({
-      event: "requestCssFullscreen",
-    });
-  });
+
   [
+    "complete",
     "play",
     "playing",
     "pause",
@@ -135,10 +120,10 @@ async function init(urls: string[]) {
     "controlShow",
     "controlHide",
   ].forEach((eventName) => {
-    eventName = "v_" + eventName;
+    let nevent = "v_" + eventName;
     player.on(eventName, () => {
       postMessage2Parent({
-        event: eventName,
+        event: nevent,
       });
     });
   });
