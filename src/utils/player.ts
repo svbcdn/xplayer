@@ -45,6 +45,8 @@ async function init(urls: string[]) {
     height: (width * 9) / 16,
     fluid: true,
     volume: 0.4,
+    videoInit: true,
+    cssFullscreen: false,
     progressDot: [],
     //screenShot: {name: "图"},
     //download: true,
