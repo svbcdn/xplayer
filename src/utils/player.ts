@@ -101,7 +101,6 @@ async function init(urls: string[]) {
     "error",
     "seeking",
     "seeked",
-    "timeupdate",
     "waiting",
     "canplay",
     "canplaythrough",
@@ -140,7 +139,6 @@ async function init(urls: string[]) {
 }
 function postMessage2Parent(data) {
   if (window != window.parent) {
-    console.info("postMessage to parent", data);
     window.parent.postMessage(data, "*");
   }
 }
