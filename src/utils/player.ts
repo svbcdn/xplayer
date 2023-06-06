@@ -154,5 +154,8 @@ async function init(urls: string[]) {
   //player.value = _player;
 }
 function postMessage2Parent(data) {
-  window.parent.postMessage(data, "*");
+  if (window != window.parent) {
+    console.info("postMessage to parent", data);
+    window.parent.postMessage(data, "*");
+  }
 }
