@@ -19,10 +19,10 @@ const config = {
       //注入页面的脚本
       import: "./src/app.ts",
       filename: "js/app.[hash].js",
-      /*          library: {
-            type: "self",
-            umdNamedDefine: false,
-         }, */
+      library: {
+        type: "self",
+        umdNamedDefine: false,
+      },
     },
   },
   output: {
