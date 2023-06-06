@@ -73,7 +73,7 @@ async function init(urls: string[]) {
   } */
   function notifyResize() {
     if (ele && window.parent && window.parent != window) {
-      console.info("=== video height", ele?.offsetHeight);
+      //console.info("=== video height", ele?.offsetHeight);
       postMessage2Parent({
         event: "v_resize",
         data: {
