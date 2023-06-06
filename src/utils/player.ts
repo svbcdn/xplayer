@@ -72,16 +72,13 @@ async function init(urls: string[]) {
   function notifyResize() {
     if (ele && window.parent && window.parent != window) {
       console.info("=== video height", ele?.offsetHeight);
-      window.parent.postMessage(
-        {
-          event: "video_resize",
-          data: {
-            width: ele.offsetWidth,
-            height: ele.offsetHeight,
-          },
+      postMessage2Parent({
+        event: "video_resize",
+        data: {
+          width: ele.offsetWidth,
+          height: ele.offsetHeight,
         },
-        "*",
-      );
+      });
     }
   }
   player.once("ready", () => {
@@ -106,13 +103,56 @@ async function init(urls: string[]) {
   player.on("error", (err) => {
     stats.error(err);
   });
+  player.on("requestCssFullscreen", () => {
+    postMessage2Parent({
+      event: "requestCssFullscreen",
+    });
+  });
+  [
+    "play",
+    "playing",
+    "pause",
+    "ended",
+    "error",
+    "seeking",
+    "seeked",
+    "timeupdate",
+    "waiting",
+    "canplay",
+    "canplaythrough",
+    "durationchange",
+    "volumechange",
+    "bufferedChange",
+    "definitionChange",
+    "playbackrateChange",
+    "screenShot",
+    "requestFullscreen",
+    "exitFullscreen",
+    "requestCssFullscreen",
+    "exitCssFullscreen",
+    "getRotateFullscreen",
+    "exitRotateFullscreen",
+    "controlShow",
+    "controlHide",
+  ].forEach((eventName) => {
+    eventName = "v_" + eventName;
+    player.on(eventName, () => {
+      postMessage2Parent({
+        event: eventName,
+      });
+    });
+  });
   window.addEventListener("beforeunload", () => {
     sessionStorage.setItem(Key, player.currentTime);
   });
 
   notifyResize();
+  setTimeout(() => notifyResize(), 500);
   window.addEventListener("resize", () => {
     notifyResize();
   });
   //player.value = _player;
+}
+function postMessage2Parent(data) {
+  window.parent.postMessage(data, "*");
 }
