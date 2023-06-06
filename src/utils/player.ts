@@ -71,6 +71,7 @@ async function init(urls: string[]) {
       return v
     }));
   } */
+  let prevHeight = ele.offsetHeight;
   function notifyResize() {
     if (ele && window.parent && window.parent != window) {
       //console.info("=== video height", ele?.offsetHeight);
@@ -137,6 +138,9 @@ async function init(urls: string[]) {
   window.addEventListener("resize", () => {
     notifyResize();
   });
+  window.onorientationchange = function () {
+    notifyResize();
+  };
   //player.value = _player;
 }
 function postMessage2Parent(data) {
