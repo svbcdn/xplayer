@@ -75,7 +75,7 @@ async function init(urls: string[]) {
   function notifyResize() {
     if (ele && window.parent && window.parent != window) {
       //console.info("=== video height", ele?.offsetHeight);
-      let max = Math.max(window.screen.availHeight - 100, 320);
+      let max = Math.max(window.screen.availHeight, 250);
       if (ele.offsetHeight >= max) return;
 
       postMessage2Parent({

@@ -1,5 +1,4 @@
-import * as ivideos from "./utils/ivideos";
-globalThis.ivideos = ivideos;
+import "./utils/ivideos";
 import "./styles";
 import "./utils/stats";
 import "./utils/player";
