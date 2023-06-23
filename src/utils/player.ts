@@ -44,7 +44,7 @@ async function init(urls: string[]) {
     width: width,
     height: (width * 9) / 16,
     fluid: true,
-    volume: 0.4,
+    volume: 0.3,
     videoInit: true,
     cssFullscreen: false,
     progressDot: [],
@@ -97,7 +97,6 @@ async function init(urls: string[]) {
   player.on("error", (err) => {
     stats.error(err);
   });
-
   [
     "complete",
     "play",
