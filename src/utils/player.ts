@@ -74,17 +74,17 @@ async function init(urls: string[]) {
   let prevHeight = ele.offsetHeight;
   function notifyResize() {
     if (ele && window.parent && window.parent != window) {
-      //console.info("=== video height", ele?.offsetHeight);
-      let max = Math.max(window.screen.availHeight, 250) + 50;
-      if (ele.offsetHeight >= max) return;
-
-      postMessage2Parent({
-        event: "v_resize",
-        data: {
-          width: ele.offsetWidth,
-          height: ele.offsetHeight - 2,
-        },
-      });
+      setTimeout(() => {
+        let max = Math.max(window.screen.availHeight, 250) + 20;
+        if (ele.offsetHeight >= max) return;
+        postMessage2Parent({
+          event: "v_resize",
+          data: {
+            width: ele.offsetWidth,
+            height: ele.offsetHeight - 2,
+          },
+        });
+      }, 50);
     }
   }
   player.once("ready", () => {
