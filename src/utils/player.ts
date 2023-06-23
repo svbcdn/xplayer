@@ -82,7 +82,7 @@ async function init(urls: string[]) {
         event: "v_resize",
         data: {
           width: ele.offsetWidth,
-          height: ele.offsetHeight - 1,
+          height: ele.offsetHeight - 2,
         },
       });
     }
