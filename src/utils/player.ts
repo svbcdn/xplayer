@@ -75,13 +75,13 @@ async function init(urls: string[]) {
   function notifyResize() {
     if (ele && window.parent && window.parent != window) {
       setTimeout(() => {
-        let max = Math.max(window.screen.availHeight, 250) + 20;
+        let max = Math.max(window.screen.availHeight, 250) + 10;
         if (ele.offsetHeight >= max) return;
         postMessage2Parent({
           event: "v_resize",
           data: {
             width: ele.offsetWidth,
-            height: ele.offsetHeight - 2,
+            height: ele.offsetHeight,
           },
         });
       }, 50);
