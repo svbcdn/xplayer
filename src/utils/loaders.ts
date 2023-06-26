@@ -5,7 +5,7 @@ export async function initScript(callback?: () => void) {
   //globalThis.Player = Player;
   await loadCss(
     //
-    "https://unpkg.byted-static.com/xgplayer/3.0.1/dist/index.min.css", //
+    //"https://unpkg.byted-static.com/xgplayer/3.0.1/dist/index.min.css", //
     //"https://cdn.jsdelivr.net/npm/xgplayer@3.0.1/dist/index.min.css", //
     "js/xgplayer/index.css",
   );
