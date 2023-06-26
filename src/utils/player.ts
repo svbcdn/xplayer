@@ -1,7 +1,7 @@
 import { initScript } from "./loaders";
 import stats from "./stats";
 let player;
-let isDestroy = false;
+let shuHeignnt = 0;
 initScript(() => {
   let info = new URL(location.href);
   let id = info.searchParams.get("id") || "";
@@ -12,7 +12,6 @@ initScript(() => {
 });
 const destroy = () => {
   if (!player) return;
-  isDestroy = true;
   player.destroy();
   player = undefined;
 };
@@ -71,16 +70,23 @@ async function init(urls: string[]) {
       return v
     }));
   } */
-  let prevHeight = ele.offsetHeight;
-  function notifyResize() {
-    if (ele && window.parent && window.parent != window) {
-      let max = Math.max(window.screen.availHeight, 250) + 25;
-      if (ele.offsetHeight >= max) return;
+  async function notifyResize() {
+    await wait(1);
+    if (ele && window.parent != window) {
+      let isShu = screen.availHeight > screen.availWidth;
+      let height = ele.offsetHeight;
+      let width = ele.offsetWidth;
+      if (isShu) {
+        if (height > screen.availHeight) {
+          await wait(1);
+          height = ele.offsetHeight;
+        }
+      }
       postMessage2Parent({
         event: "v_resize",
         data: {
-          width: ele.offsetWidth,
-          height: ele.offsetHeight,
+          width: width,
+          height: height,
         },
       });
     }
@@ -147,4 +153,7 @@ function postMessage2Parent(data) {
   if (window != window.parent) {
     window.parent.postMessage(data, "*");
   }
+}
+async function wait(ttl = 1): Promise<void> {
+  return new Promise((resolve) => setTimeout(() => resolve(), ttl));
 }
