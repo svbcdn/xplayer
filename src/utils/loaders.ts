@@ -7,19 +7,19 @@ export async function initScript(callback?: () => void) {
     //
     "https://unpkg.byted-static.com/xgplayer/3.0.1/dist/index.min.css", //
     //"https://cdn.jsdelivr.net/npm/xgplayer@3.0.1/dist/index.min.css", //
-    "/js/xgplayer/index.css",
+    "js/xgplayer/index.css",
   );
   await loadScript(
     //
     "https://unpkg.byted-static.com/xgplayer/3.0.1/dist/index.min.js", //
     //"https://cdn.jsdelivr.net/npm/xgplayer@3.0.1/dist/index.min.js", //
-    "/js/xgplayer/index.js",
+    "js/xgplayer/index.js",
   );
   await loadScript(
     //
     "https://unpkg.byted-static.com/xgplayer-hls.js/3.0.0-alpha.1/dist/index.min.js", //
     //"https://cdn.jsdelivr.net/npm/xgplayer-hls.js@2.6.4/dist/index.js",//不兼容,等3.0.0
-    "/js/xgplayer/hlsjs.js",
+    "js/xgplayer/hlsjs.js",
   );
   callback && callback();
 }
