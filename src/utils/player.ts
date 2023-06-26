@@ -74,17 +74,15 @@ async function init(urls: string[]) {
   let prevHeight = ele.offsetHeight;
   function notifyResize() {
     if (ele && window.parent && window.parent != window) {
-      setTimeout(() => {
-        let max = Math.max(window.screen.availHeight, 250) + 10;
-        if (ele.offsetHeight >= max) return;
-        postMessage2Parent({
-          event: "v_resize",
-          data: {
-            width: ele.offsetWidth,
-            height: ele.offsetHeight,
-          },
-        });
-      }, 50);
+      let max = Math.max(window.screen.availHeight, 250) + 25;
+      if (ele.offsetHeight >= max) return;
+      postMessage2Parent({
+        event: "v_resize",
+        data: {
+          width: ele.offsetWidth,
+          height: ele.offsetHeight,
+        },
+      });
     }
   }
   player.once("ready", () => {
