@@ -1,4 +1,4 @@
-import { initScript } from "./loadres";
+import { initScript } from "./loaders";
 import stats from "./stats";
 let player;
 let isDestroy = false;
@@ -27,7 +27,7 @@ async function init(urls: string[]) {
   const Key = "playTime-" + url;
   let lastPlayTime = parseInt(sessionStorage.getItem(Key) || "") || 1;
 
-  console.info("==== play ", url, lastPlayTime);
+  console.info("==== play", url, lastPlayTime);
   let ele = document.querySelector("#xplayer") as HTMLElement;
   if (!!player) destroy();
   //let url = "https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4";
