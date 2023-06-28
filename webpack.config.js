@@ -18,7 +18,7 @@ const config = {
     app: {
       //注入页面的脚本
       import: "./src/app.ts",
-      filename: "js/app.[hash].js",
+      filename: "js/app.js",
       library: {
         type: "self",
         umdNamedDefine: false,
