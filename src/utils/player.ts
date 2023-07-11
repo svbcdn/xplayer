@@ -33,10 +33,14 @@ async function init(urls: string[]) {
   //url =
   //  "https://m3u.haiwaikan.com/xm3u8/9df98f18a3f5614ef85b0e5369de07a316877bb3ee411965cb32065413c5dae79921f11e97d0da21.m3u8";
   const width = 700;
+  console.info("playxxxx");
   player = new globalThis.Player({
     el: ele,
     url: url,
     currentTime: lastPlayTime,
+    controls: {
+      initShow: true,
+    },
     //autoplay: true,
     //playsinline: true,
     playbackRate: [0.5, 0.75, 1, 1.5, 2],
@@ -51,6 +55,22 @@ async function init(urls: string[]) {
     //download: true,
     pip: true,
     keyShortcut: true,
+
+    keyboard: {
+      seekStep: 5, //快进/快退快捷键每次操作的时间，单位为s,默认值为10
+      disableBodyTrigger: false, //禁用全局监听,
+      keyCodeMap: {
+        right: {
+          keyCode: 39,
+          disable: false,
+          action: () => {
+            //快捷键触发的时候执行该函数
+            player.emit("playing");
+            player.seek(player.currentTime + 5);
+          },
+        },
+      },
+    },
     playsinline: true,
     enableContextmenu: true,
     lang: getLang(),
