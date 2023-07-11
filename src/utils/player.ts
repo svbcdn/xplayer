@@ -64,9 +64,12 @@ async function init(urls: string[]) {
           keyCode: 39,
           disable: false,
           action: () => {
+            let time = player.currentTime + 5;
+            console.info("前进", time);
             //快捷键触发的时候执行该函数
+            player.seek(time);
+            player.currentTime = time;
             player.emit("playing");
-            player.seek(player.currentTime + 5);
           },
         },
       },
