@@ -162,9 +162,9 @@ async function init(urls: string[]) {
     sessionStorage.setItem(Key, player.currentTime);
   });
   window.addEventListener("message", (ev) => {
+    console.info("========>ev", ev);
     let { event, data } = ev.data;
     if (event == "close") {
-      console.info("close==========");
       window.close();
     }
   });
