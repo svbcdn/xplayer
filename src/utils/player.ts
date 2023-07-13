@@ -164,6 +164,7 @@ async function init(urls: string[]) {
   window.addEventListener("message", (ev) => {
     let { event, data } = ev.data;
     if (event == "close") {
+      console.info("close==========");
       window.close();
     }
   });
