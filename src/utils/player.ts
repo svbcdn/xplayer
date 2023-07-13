@@ -168,10 +168,13 @@ async function init(urls: string[]) {
   });
   console.info("==============listen message");
   window.addEventListener("message", (ev) => {
-    console.info("========>ev", ev);
     let { event, data } = ev.data;
+    console.info("========>ev", ev, event == "close");
     if (event == "close") {
-      window.close();
+      console.info("close==========");
+      // 如果要传递数据可以挂在 event 上
+      window.dispatchEvent(new Event("beforeunload"));
+      window.dispatchEvent(new Event("close"));
     }
   });
 
