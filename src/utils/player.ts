@@ -58,7 +58,7 @@ async function init(urls: string[]) {
 
     keyboard: {
       seekStep: 5, //快进/快退快捷键每次操作的时间，单位为s,默认值为10
-      disableBodyTrigger: true, //禁用全局监听,
+      disableBodyTrigger: false, //禁用全局监听,
       keyCodeMap: {
         right: {
           keyCode: 39,
