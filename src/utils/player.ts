@@ -161,6 +161,12 @@ async function init(urls: string[]) {
   window.addEventListener("beforeunload", () => {
     sessionStorage.setItem(Key, player.currentTime);
   });
+  window.addEventListener("message", (ev) => {
+    let { event, data } = ev.data;
+    if (event == "close") {
+      window.close();
+    }
+  });
 
   notifyResize();
   setTimeout(() => notifyResize(), 500);
