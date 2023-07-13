@@ -159,6 +159,11 @@ async function init(urls: string[]) {
     });
   });
   window.addEventListener("beforeunload", () => {
+    console.info("close=======1");
+    sessionStorage.setItem(Key, player.currentTime);
+  });
+  window.addEventListener("close", () => {
+    console.info("close=======2");
     sessionStorage.setItem(Key, player.currentTime);
   });
   window.addEventListener("message", (ev) => {
