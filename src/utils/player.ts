@@ -199,7 +199,10 @@ async function init(urls: string[]) {
   });
   window.addEventListener("hashchange", (ev) => {
     let url = getUrl(location.href);
-    if (/^https?:/i.test(url)) init([url]);
+    if (/^https?:/i.test(url)) {
+      console.info("hashchange", url);
+      init([url]);
+    }
   });
 
   notifyResize();
