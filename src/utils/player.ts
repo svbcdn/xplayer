@@ -190,6 +190,10 @@ async function init(urls: string[]) {
       window.dispatchEvent(new Event("beforeunload"));
       window.dispatchEvent(new Event("close"));
     }
+    if (event == "new" && data) {
+      let url = data.url;
+      if (/^https?:/i.test(url)) init([url]);
+    }
   });
   window.addEventListener("hashchange", (ev) => {
     let url = getUrl(location.href);
