@@ -192,7 +192,9 @@ async function init(urls: string[]) {
     }
     if (event == "new" && data) {
       let url = data.url;
-      if (/^https?:/i.test(url)) init([url]);
+      if (/^https?:/i.test(url)) {
+        history.pushState({}, "", url);
+      }
     }
   });
   window.addEventListener("hashchange", (ev) => {
