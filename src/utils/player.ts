@@ -2,14 +2,16 @@ import { initScript } from "./loaders";
 import stats from "./stats";
 let player;
 initScript(() => {
+  let url = getUrl(location.href);
+  if (/^https?:/i.test(url)) init([url]);
+});
+function getUrl(url: string) {
   let info = new URL(location.href);
   let hashs = queryObject(info.hash);
   let id = hashs.id || info.searchParams.get("id") || "";
   id = decodeURIComponent(id);
-  if (/^https?:/i.test(id)) {
-    init([id]);
-  }
-});
+  return id;
+}
 function queryObject(val: string): { [key: string]: any } {
   val = val.replace(/^#/, "");
   let sp = val.split(/(&|&amp;)/);
@@ -32,12 +34,15 @@ const getLang = () => {
   if (/(cn|zh)/i.test(lang)) return "zh";
   return "cn";
 };
+let playerURL = "";
 async function init(urls: string[]) {
   if (!urls || urls.length < 1) return;
+
   let url = urls[0];
+  if (url == playerURL) return;
+  playerURL = url;
   const Key = "playTime-" + url;
   let lastPlayTime = parseInt(sessionStorage.getItem(Key) || "") || 1;
-
   console.info("==== play", url, lastPlayTime);
   let ele = document.querySelector("#xplayer") as HTMLElement;
   if (!!player) destroy();
@@ -45,7 +50,6 @@ async function init(urls: string[]) {
   //url =
   //  "https://m3u.haiwaikan.com/xm3u8/9df98f18a3f5614ef85b0e5369de07a316877bb3ee411965cb32065413c5dae79921f11e97d0da21.m3u8";
   const width = 700;
-  console.info("playxxxx");
   player = new globalThis.Player({
     el: ele,
     url: url,
@@ -178,16 +182,18 @@ async function init(urls: string[]) {
     console.info("close=======2");
     sessionStorage.setItem(Key, player.currentTime);
   });
-  console.info("==============listen message");
   window.addEventListener("message", (ev) => {
     let { event, data } = ev.data;
-    console.info("========>ev", ev, event == "close");
     if (event == "close") {
       console.info("close==========");
       // 如果要传递数据可以挂在 event 上
       window.dispatchEvent(new Event("beforeunload"));
       window.dispatchEvent(new Event("close"));
     }
+  });
+  window.addEventListener("hashchange", (ev) => {
+    let url = getUrl(location.href);
+    if (/^https?:/i.test(url)) init([url]);
   });
 
   notifyResize();
