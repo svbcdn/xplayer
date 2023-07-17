@@ -193,7 +193,7 @@ async function init(urls: string[]) {
     if (event == "new" && data) {
       let url = data.url;
       if (/^https?:/i.test(url)) {
-        history.pushState({}, "", url);
+        history.pushState({}, "", "#id=" + encodeURIComponent(url));
       }
     }
   });
