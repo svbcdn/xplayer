@@ -1,15 +1,27 @@
 import { initScript } from "./loaders";
 import stats from "./stats";
 let player;
-let shuHeignnt = 0;
 initScript(() => {
   let info = new URL(location.href);
-  let id = info.searchParams.get("id") || "";
+  let hashs = queryObject(info.hash);
+  let id = hashs.id || info.searchParams.get("id") || "";
   id = decodeURIComponent(id);
   if (/^https?:/i.test(id)) {
     init([id]);
   }
 });
+function queryObject(val: string): { [key: string]: any } {
+  val = val.replace(/^#/, "");
+  let sp = val.split(/(&|&amp;)/);
+  let map = {};
+  sp.forEach((v) => {
+    if (!v) return;
+    let kv = v.split("=").map((v) => v.trim());
+    if (kv.length != 2) return;
+    map[kv[0]] = kv[1];
+  });
+  return map;
+}
 const destroy = () => {
   if (!player) return;
   player.destroy();
