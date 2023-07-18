@@ -175,20 +175,20 @@ async function init(urls: string[]) {
     });
   });
   window.addEventListener("beforeunload", () => {
-    console.info("close=======1");
+    console.info("beforeunload=======");
     sessionStorage.setItem(Key, player.currentTime);
   });
   window.addEventListener("close", () => {
-    console.info("close=======2");
+    console.info("close=======");
     sessionStorage.setItem(Key, player.currentTime);
   });
   window.addEventListener("message", (ev) => {
     let { event, data } = ev.data;
     if (event == "close") {
-      console.info("close==========");
       // 如果要传递数据可以挂在 event 上
       window.dispatchEvent(new Event("beforeunload"));
       window.dispatchEvent(new Event("close"));
+      window.close();
     }
     if (event == "new" && data) {
       let url = data.url;
