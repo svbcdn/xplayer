@@ -183,6 +183,10 @@ async function init(urls: string[]) {
   window.addEventListener("message", (ev) => {
     let { event, data } = ev.data;
     if (event == "close") {
+      console.info("===== close xplayer ============");
+      try {
+        window["_ivtorrent"]?.close();
+      } catch (err) {}
       // 如果要传递数据可以挂在 event 上
       window.dispatchEvent(new Event("beforeunload"));
       window.dispatchEvent(new Event("close"));
