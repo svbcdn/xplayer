@@ -175,11 +175,9 @@ async function init(urls: string[]) {
     });
   });
   window.addEventListener("beforeunload", () => {
-    console.info("beforeunload=======");
     sessionStorage.setItem(Key, player.currentTime);
   });
   window.addEventListener("close", () => {
-    console.info("close=======");
     sessionStorage.setItem(Key, player.currentTime);
   });
   window.addEventListener("message", (ev) => {
