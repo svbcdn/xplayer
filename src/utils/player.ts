@@ -118,7 +118,7 @@ async function init(urls: string[]) {
       if (isShu) {
         if (height > screen.availHeight) {
           await wait(1);
-          height = ele.offsetHeight;
+          height = ele.offsetHeight + 25;
         }
       }
       postMessage2Parent({
