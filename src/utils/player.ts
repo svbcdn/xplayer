@@ -110,7 +110,7 @@ async function init(urls: string[]) {
     }));
   } */
   async function notifyResize() {
-    await wait(1);
+    await wait(10);
     if (ele && window.parent != window) {
       let isShu = screen.availHeight > screen.availWidth;
       let height = ele.offsetHeight;
