@@ -111,13 +111,13 @@ async function init(urls: string[]) {
   } */
   async function notifyResize() {
     await wait(10);
-    if (ele && window.parent != window) {
+    if (ele) {
       let isShu = screen.availHeight > screen.availWidth;
       let height = ele.offsetHeight;
       let width = ele.offsetWidth;
       if (isShu) {
         if (height > screen.availHeight) {
-          await wait(1);
+          await wait(5);
           height = ele.offsetHeight;
         }
       }
