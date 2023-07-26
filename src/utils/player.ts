@@ -121,7 +121,7 @@ async function init(urls: string[]) {
           height = ele.offsetHeight;
         }
       }
-      height = height + 25;
+      height = height + 12;
       console.info("v_resize=", { width, height });
       postMessage2Parent({
         event: "v_resize",
