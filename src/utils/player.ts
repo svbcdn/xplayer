@@ -122,7 +122,7 @@ async function init(urls: string[]) {
         }
       }
       height = height + 12;
-      console.info("v_resize=", { width, height });
+      //console.info("v_resize=", { width, height });
       postMessage2Parent({
         event: "v_resize",
         data: {
